@@ -14,8 +14,8 @@ Hi 👋, this page exists to summarize some stuff about me. I'm currently lookin
   - [Issues](https://gitlab.com/ghyslainbruno/zoning/-/boards)
   
 
-- [🎥 Lazyker](https://lazyker.ghyslain.xyz) ➡ kind of my personal sandbox ⚙️
-  - [Production](https://lazyker.ghyslain.xyz)
+- [🎥 Lazyker](https://lazyker.gbruno.io) ➡ kind of my personal sandbox ⚙️
+  - [Production](https://lazyker.gbruno.io)
   - [Repository](https://gitlab.com/ghyslainbruno/lazyker)
   - [Issues](https://gitlab.com/ghyslainbruno/lazyker/-/boards)
 
