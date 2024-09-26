@@ -19,6 +19,9 @@ Hi 👋, this page exists to summarize some stuff about me. I'm currently lookin
   - [Repository](https://gitlab.com/ghyslainbruno/lazyker)
   - [Issues](https://gitlab.com/ghyslainbruno/lazyker/-/boards)
 
+### Tiny side projects :
+- [Co2 balance](https://co2.gbruno.io/) ➡ Visualize how much Co2 you spent in travels, compared to [what it should be](https://www.1erdegre.earth/blog-posts/tout-savoir-sur-lobjectif-des-2-tonnes#:~:text=Les%202%20tonnes%20ont%20pour,150%20Gt%20de%20CO2.).  
+
 ### Get in touch
 - Calendly : [https://calendly.com/ghyslainbruno](https://calendly.com/ghyslainbruno)
 - Mail : [ghyslainbruno@gmail.com](mailto:ghyslainbruno@gmail.com)
