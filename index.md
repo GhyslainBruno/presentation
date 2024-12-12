@@ -26,7 +26,7 @@ Hi 👋, this page exists to summarize some stuff about me. I'm currently lookin
 
 <details>
   <summary>
-    Heating/cooling
+   🔥❄️ Heating/cooling
   </summary>
 
   <ul>
@@ -35,35 +35,104 @@ Hi 👋, this page exists to summarize some stuff about me. I'm currently lookin
     <li>Set up a ducted heat pump</li>
   </ul>
 </details>
-  
-- Masonry
-  - Load-bearing wall opening
-  - Pour a 12t concrete slab
-  - Build a small shelter for my pool pump
-- Excavator
-  - 800kg
-  - 3,5t
-- Electrical
-  - Electrical panel (from old to new)
-  - Wire all electrical lines
-  - Home automation
-- Plumbing
-  - The pipes
-  - The collectors
-  - Soft and strong solders
-- Tiling
-  - Bedroom
-  - Bathroom
-  - Living/kitchen
-- Drywalls
-  - Insulation
-  - Frame
-  - Strips
-- Welding
-  - Furniture
-  - Pergola (huge and with overhang)
-  - Barrier (40m+ and 2 gates)
-- Carpentry and coverage
+
+<details>
+  <summary>
+  🧱 Masonry
+  </summary>
+
+  <ul>
+    <li>Load-bearing wall opening</li>
+    <li>Pour a 12t concrete slab</li>
+    <li>Build a small shelter for my pool pump</li>
+    <li>Build a walk-in shower</li>
+  </ul>
+</details>
+
+<details>
+  <summary>
+    🚜 Excavators
+  </summary>
+
+  <ul>
+    <li>0,8t</li>
+    <li>3,5t</li>
+  </ul>
+</details>
+
+<details>
+  <summary>
+    💡Electrical
+  </summary>
+
+  <ul>
+    <li>Electrical panel (from old to new)</li>
+    <li>Wire all electrical lines</li>
+    <li>Home automation</li>
+  </ul>
+</details>
+
+<details>
+  <summary>
+    💧 Plumbing
+  </summary>
+
+  <ul>
+    <li>The pipes</li>
+    <li>The collectors</li>
+    <li>Soft and strong solders</li>
+  </ul>
+</details>
+
+<details>
+  <summary>
+    🏼 Tiling
+  </summary>
+
+  <ul>
+    <li>Bedroom</li>
+    <li>Bathroom #1</li>
+    <li>Living/kitchen</li>
+  </ul>
+</details>
+
+<details>
+  <summary>
+    ⬜ Drywalls
+  </summary>
+
+  <ul>
+    <li>Insulation</li>
+    <li>Frame</li>
+    <li>Strips</li>
+  </ul>
+</details>
+
+<details>
+  <summary>
+    👨‍🏭🔗‍💥 Welding
+  </summary>
+
+  <ul>
+    <li>Furniture</li>
+    <li>Pergola (huge and with overhang)</li>
+    <li>Barrier (40m+ and 2 gates)</li>
+  </ul>
+</details>
+
+<details>
+  <summary>
+   🪚🔨🪟 Carpentry and coverage
+  </summary>
+
+  <ul>
+    <li>Regular windows</li>
+    <li>Sliding windows</li>
+    <li>Big bay window</li>
+    <li>Carpentry small pool shelter</li>
+    <li>Coverage small pool shelter</li>
+  </ul>
+</details>
 
 ### Get in touch
 - Calendly : [https://calendly.com/ghyslainbruno](https://calendly.com/ghyslainbruno)
