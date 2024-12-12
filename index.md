@@ -134,6 +134,7 @@ Hi 👋, this page exists to summarize some stuff about me. I'm currently lookin
   </ul>
 </details>
 
+<br/>
 
 ### Get in touch
 - Calendly : [https://calendly.com/ghyslainbruno](https://calendly.com/ghyslainbruno)
