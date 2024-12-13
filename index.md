@@ -7,6 +7,7 @@ Hi 👋, this page exists to summarize some stuff about me. I'm currently lookin
 - [Gitlab](https://gitlab.com/users/ghyslainbruno/projects)
 - [Github](https://github.com/GhyslainBruno)
 - [LinkedIn](https://www.linkedin.com/in/ghyslainbruno/)
+- [Stack overflow](https://stackoverflow.com/users/16136299/ghyslainbruno)
 
 ### Main side projects
 - [🔥 HVAC - Zoning](https://gitlab.com/ghyslainbruno/zoning) ➡ my last challenging project - this is "real" full stack stuff
