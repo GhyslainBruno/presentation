@@ -40,7 +40,7 @@ N'hésitez pas à regarder mes différentes réalisations et à me contacter.
 - [Plomberie 💧](https://photos.app.goo.gl/kyJVDsfevDuj1MXZ7)
 - [Pelles / Terrassements / Assainissements 🚜](https://photos.app.goo.gl/ry5KjQvobp4egBC87)
 - [Charpente / Couverture / Zinc 🪚](https://photos.app.goo.gl/yC4t8uQjUAxD7UYLA)
-- [Élaguage 🪵🪓](https://photos.app.goo.gl/nkvthsGQMbavkNLu8)
+- [Élagage 🪵🪓](https://photos.app.goo.gl/nkvthsGQMbavkNLu8)
 
 <br />
 
