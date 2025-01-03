@@ -1,3 +1,5 @@
+[Click here to display page en french 🇫🇷](https://ghyslainbruno.github.io/presentation/french.md)
+
 ## Welcome to my GitHub Pages
 
 Hi 👋, this page exists to summarize some stuff about me. I'm currently looking for new exciting projects, feel free to reach me out. 
