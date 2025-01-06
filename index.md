@@ -1,4 +1,4 @@
-[Click here to display page en french 🇫🇷](https://ghyslainbruno.github.io/presentation/french.md)
+[Click here to display page en french 🇫🇷](https://ghyslainbruno.github.io/presentation/french)
 
 ## Welcome to my GitHub Pages
 
