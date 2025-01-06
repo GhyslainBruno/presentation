@@ -30,7 +30,7 @@ Hi 👋, this page exists to summarize some stuff about me. I'm currently lookin
 - [Welding 👨‍🏭🔗‍💥 ](https://photos.app.goo.gl/SXzXXr2iNYUfWe4T7)
 - [Heat pumps 🔥❄️ ](https://photos.app.goo.gl/t4it4ihV2sNsH6ba6)
 - [Masonry 🧱](https://photos.app.goo.gl/1YaimxRvEBdmdQvC6)
-- [Drywalls / Isolation / Bandes / Peinture ⬜ ](https://photos.app.goo.gl/yVDXPCHfReXF5Sd47)
+- [Drywalls ⬜ ](https://photos.app.goo.gl/yVDXPCHfReXF5Sd47)
 - [Wood working 🪚](https://photos.app.goo.gl/AK21VeZiJsKoqc6D7)
 - [Electrical 💡](https://photos.app.goo.gl/MEjvYiUfFHfqomZC9)
 - [Tiling 💠](https://photos.app.goo.gl/FRfgtacycsUPfyDb6)
