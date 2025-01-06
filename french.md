@@ -7,7 +7,7 @@ Bonjour 👋, cette page existe pour lister quelques informations utiles à mon 
 Je suis actuellement en recherche de nouveau(x) projet(s), dans l'informatique ou dans l'artisanat.
 N'hésitez pas à regarder mes différentes réalisations et à me contacter.
 
-### Projets personnels - Artisanat
+### Projets personnels - Artisanat (cliquez pour voir des images)
 
 - [Soudure 👨‍🏭🔗‍💥 ](https://photos.app.goo.gl/SXzXXr2iNYUfWe4T7)
 - [Pompes à chaleur 🔥❄️ ](https://photos.app.goo.gl/t4it4ihV2sNsH6ba6)
