@@ -4,7 +4,7 @@
 
 Bonjour 👋, cette page existe pour lister quelques informations utiles à mon sujet. 
 
-Je suis actuellement en recherche de nouveau(x) projet(s), dans l'informatique ou dans l'artisanat.
+Je suis actuellement en recherche de nouveau(x) projet(s).
 N'hésitez pas à regarder mes différentes réalisations et à me contacter.
 
 ### Liens
