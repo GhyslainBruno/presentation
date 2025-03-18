@@ -1,48 +1,53 @@
-[Click here to display page en french 🇫🇷](https://ghyslainbruno.github.io/presentation/french)
+[Cliquez ici pour afficher la page en anglais 🇬🇧](https://ghyslainbruno.github.io/presentation/english)
 
-## Welcome to my GitHub Pages
+## Bienvenue sur ma page
 
-Hi 👋, this page exists to summarize some stuff about me. I'm currently looking for new exciting projects, feel free to reach me out. 
+Bonjour 👋, cette page existe pour lister quelques informations utiles à mon sujet. 
 
-### Links
-- [Resume](https://ghyslainbruno.github.io/presentation/resume.pdf)
+Je suis actuellement en recherche de nouveau(x) projet(s), dans l'informatique ou dans l'artisanat.
+N'hésitez pas à regarder mes différentes réalisations et à me contacter.
+
+### Liens
+- [CV](https://ghyslainbruno.github.io/presentation/resume.pdf)
+- [Dossier de compétences](https://ghyslainbruno.github.io/presentation/dossier_de_competences_2025.pdf)
 - [Gitlab](https://gitlab.com/users/ghyslainbruno/projects)
 - [Github](https://github.com/GhyslainBruno)
 - [LinkedIn](https://www.linkedin.com/in/ghyslainbruno/)
 - [Stack overflow](https://stackoverflow.com/users/16136299/ghyslainbruno)
 
-### Main side projects
-- [🔥 HVAC - Zoning](https://gitlab.com/ghyslainbruno/zoning) ➡ my last challenging project - this is "real" full stack stuff
-  - [Repository](https://gitlab.com/ghyslainbruno/zoning)
-  - [Issues](https://gitlab.com/ghyslainbruno/zoning/-/boards)
-  
-
-- [🎥 Lazyker](https://lazyker.gbruno.io) ➡ kind of my personal sandbox ⚙️
-  - [Production](https://lazyker.gbruno.io)
-  - [Repository](https://gitlab.com/ghyslainbruno/lazyker)
-  - [Issues](https://gitlab.com/ghyslainbruno/lazyker/-/boards)
-
-### Tiny side projects
-- [🌎 Co2 balance](https://co2.gbruno.io/) ➡ Visualize how much Co2 you spent in travels, compared to [what it should be](https://www.1erdegre.earth/blog-posts/tout-savoir-sur-lobjectif-des-2-tonnes#:~:text=Les%202%20tonnes%20ont%20pour,150%20Gt%20de%20CO2.).
-
-### Hobbyist side projects (click to see pictures)
-
-- [Welding 👨‍🏭🔗‍💥 ](https://photos.app.goo.gl/SXzXXr2iNYUfWe4T7)
-- [Heat pumps 🔥❄️ ](https://photos.app.goo.gl/t4it4ihV2sNsH6ba6)
-- [Masonry 🧱](https://photos.app.goo.gl/1YaimxRvEBdmdQvC6)
-- [Drywalls ⬜ ](https://photos.app.goo.gl/yVDXPCHfReXF5Sd47)
-- [Wood working 🪚](https://photos.app.goo.gl/AK21VeZiJsKoqc6D7)
-- [Electrical 💡](https://photos.app.goo.gl/MEjvYiUfFHfqomZC9)
-- [Tiling 💠](https://photos.app.goo.gl/FRfgtacycsUPfyDb6)
-- [Plumbing 💧](https://photos.app.goo.gl/kyJVDsfevDuj1MXZ7)
-- [Excavators 🚜](https://photos.app.goo.gl/ry5KjQvobp4egBC87)
-- [Carpentry and coverage 🪚](https://photos.app.goo.gl/yC4t8uQjUAxD7UYLA)
-- [Pruning 🪵🪓](https://photos.app.goo.gl/nkvthsGQMbavkNLu8)
+### Principaux projets personnels - Informatique
+- [🔥 HVAC - Zoning](https://gitlab.com/ghyslainbruno/zoning) ➡ Mon dernier projet informatique, très challengeant - tout a été réalisé par moi-même
+    - [Code](https://gitlab.com/ghyslainbruno/zoning)
+    - [Problèmes](https://gitlab.com/ghyslainbruno/zoning/-/boards)
 
 
-### Get in touch
+- [🎥 Lazyker](https://lazyker.gbruno.io) ➡ Ma sandbox personnelle ⚙️
+    - [Production](https://lazyker.gbruno.io)
+    - [Code](https://gitlab.com/ghyslainbruno/lazyker)
+    - [Problèmes](https://gitlab.com/ghyslainbruno/lazyker/-/boards)
+
+
+- [🌎 Co2 balance](https://co2.gbruno.io/) ➡ Visualiser combien de Co2 mes trajets émettent chaque année comparé à ce que [cela devrait-être](https://www.1erdegre.earth/blog-posts/tout-savoir-sur-lobjectif-des-2-tonnes#:~:text=Les%202%20tonnes%20ont%20pour,150%20Gt%20de%20CO2.).
+
+<br />
+
+### Projets personnels - Artisanat (cliquez pour voir des images)
+
+- [Soudure 👨‍🏭🔗‍💥 ](https://photos.app.goo.gl/SXzXXr2iNYUfWe4T7)
+- [Pompes à chaleur 🔥❄️ ](https://photos.app.goo.gl/t4it4ihV2sNsH6ba6)
+- [Maçonnerie 🧱](https://photos.app.goo.gl/1YaimxRvEBdmdQvC6)
+- [Placo / Isolation / Bandes / Peinture ⬜ ](https://photos.app.goo.gl/yVDXPCHfReXF5Sd47)
+- [Menuiserie 🪚](https://photos.app.goo.gl/AK21VeZiJsKoqc6D7)
+- [Électricité 💡](https://photos.app.goo.gl/MEjvYiUfFHfqomZC9)
+- [Carrelage 💠](https://photos.app.goo.gl/FRfgtacycsUPfyDb6)
+- [Plomberie 💧](https://photos.app.goo.gl/kyJVDsfevDuj1MXZ7)
+- [Pelles / Terrassements / Assainissements 🚜](https://photos.app.goo.gl/ry5KjQvobp4egBC87)
+- [Charpente / Couverture / Zinc 🪚](https://photos.app.goo.gl/yC4t8uQjUAxD7UYLA)
+- [Élagage 🪵🪓](https://photos.app.goo.gl/nkvthsGQMbavkNLu8)
+
+### Entrer en contact
 - Calendly : [https://calendly.com/ghyslainbruno](https://calendly.com/ghyslainbruno)
 - Mail : [ghyslainbruno@gmail.com](mailto:ghyslainbruno@gmail.com)
-- Phone : +33(0)6 63 62 41 17
+- Tél : +33(0)6 63 62 41 17
 
-### 📌 Somewhere in south-west of France
+### 📌 Situé à [Salles-sur-Garonne](https://maps.app.goo.gl/A3z8wNWVKK6mHRtF6) (50km au sud de Toulouse)
