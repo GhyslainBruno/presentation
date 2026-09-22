@@ -265,7 +265,10 @@
     if(s<90)return "à l'instant";if(s<3600)return Math.round(s/60)+" min";
     if(s<86400)return Math.round(s/3600)+" h";return Math.round(s/86400)+" j";}
 
-  function renderMine(){const g=otherDevSec()+total();$("myTotal").textContent=fmt(g);$("myCost").textContent=euro(g);}
+  // "Mon total" = ce que le SERVEUR a pour mon nom (somme de mes appareils) → identique sur PC et tél.
+  // Repli sur le local uniquement tant qu'on n'a jamais réussi à synchroniser (sinon ce serait 0 à froid).
+  function myServerSec(){const n=cache[mySlug()];return (n&&(n.dev||n.secondes!=null||n.auto!=null))?userSec(n):total();}
+  function renderMine(){const g=myServerSec();$("myTotal").textContent=fmt(g);$("myCost").textContent=euro(g);}
 
   // ---------- identité = le NOM (normalisé), commune à tous tes appareils ----------
   function slugify(s){return (s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");}
@@ -273,8 +276,6 @@
   // somme des secondes d'un utilisateur (nouveau format {dev:{}} ou ancien plat, par tolérance)
   function userSec(n){if(!n)return 0;if(n.dev){let s=0;for(const k in n.dev)s+=(n.dev[k]&&n.dev[k].secondes)||0;return s;}return n.secondes!=null?n.secondes:((n.auto||0)+(n.manuel||0));}
   function userMaj(n){if(!n)return 0;if(n.dev){let m=0;for(const k in n.dev)m=Math.max(m,(n.dev[k]&&n.dev[k].maj)||0);return m;}return n.maj||0;}
-  // secondes de MES AUTRES appareils (ex : le tél quand je suis sur le PC), d'après le dernier pull
-  function otherDevSec(){const n=cache[mySlug()];if(!n||!n.dev)return 0;let s=0;for(const k in n.dev){if(k!==data.id)s+=(n.dev[k]&&n.dev[k].secondes)||0;}return s;}
 
   // ---------- synchro Firebase (REST) ----------
   let dirty=false, cache={};
@@ -289,7 +290,12 @@
     // PATCH avec une clé "dev/<id>" : met à jour le nom + MON appareil, sans toucher aux autres appareils du même user
     const body={nom:(data.name||"").trim(),["dev/"+data.id]:{secondes:Math.round(total()),maj:Date.now()}};
     try{const r=await fetch(`${DB_URL}/devs/${slug}.json`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
-      if(!r.ok)throw 0; dirty=false; setSync(true);}catch(e){setSync(false);}
+      if(!r.ok)throw 0;
+      // reflet immédiat dans le cache (sans attendre le prochain pull) pour que "Mon total" bouge tde suite
+      cache[slug]=cache[slug]||{}; cache[slug].nom=(data.name||"").trim(); cache[slug].dev=cache[slug].dev||{};
+      cache[slug].dev[data.id]={secondes:Math.round(total()),maj:Date.now()};
+      dirty=false; setSync(true); renderMine();
+    }catch(e){setSync(false);}
   }
   async function pull(){
     if(!DB_URL){setSync(false);renderTeamLocal();return;}
@@ -301,6 +307,9 @@
   function renderTeam(all){
     cache=all||{};
     const me=mySlug();
+    // reset propagé : si mon compteur a été effacé depuis un autre appareil, on vide le local ici aussi
+    const myNode=cache[me];
+    if(myNode&&myNode.reset&&myNode.reset>(data.resetSeen||0)){data.days={};data.resetSeen=myNode.reset;save();dirty=true;}
     const rows=Object.entries(cache).map(([slug,d])=>({slug,nom:d.nom||"Anonyme",tot:userSec(d),maj:userMaj(d)}))
       .filter(r=>r.tot>0||r.slug===me).sort((a,b)=>b.tot-a.tot);
     const teamSec=rows.reduce((s,r)=>s+r.tot,0);
@@ -349,9 +358,12 @@ Détail par dev dans l'export CSV.`;
     catch(e){prompt("Copie ce résumé :",txt);}
   });
   $("reset").addEventListener("click",async()=>{
-    if(!confirm("Effacer le compteur de CET appareil (local + sa part côté équipe) ? Irréversible."))return;
-    data.days={};save();
-    if(DB_URL&&mySlug()){try{await fetch(`${DB_URL}/devs/${mySlug()}/dev/${data.id}.json`,{method:"DELETE"});}catch(e){}}
+    if(!confirm("Effacer TON compteur sur TOUS tes appareils (même nom) ? Irréversible."))return;
+    const slug=mySlug(), epoch=Date.now();
+    data.days={}; data.resetSeen=epoch; save();
+    // pose un marqueur "reset" + supprime tes appareils : les autres appareils au même nom videront leur local au prochain rafraîchissement
+    if(DB_URL&&slug){try{await fetch(`${DB_URL}/devs/${slug}.json`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({reset:epoch,dev:null})});}catch(e){}}
+    if(cache[slug]){cache[slug].dev={};cache[slug].reset=epoch;}
     renderMine();pull();
   });
 
