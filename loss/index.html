@@ -6,27 +6,17 @@
 
   MISE EN PLACE (une seule fois, ~5 min) :
 
-  1. Va sur https://console.firebase.google.com → "Ajouter un projet"
-     (nom au choix, tu peux désactiver Google Analytics).
+  1. https://console.firebase.google.com → projet → "Realtime Database"
+     → "Créer une base de données" → région europe-west1 → mode test.
+  2. Copie l'URL de la base (ex :
+     https://loss-xxxx-default-rtdb.europe-west1.firebasedatabase.app )
+     et colle-la dans DB_URL, plus bas dans le <script>.
+  3. Onglet "Règles" → colle → Publier :
+       { "rules": { "devs": { ".read": true, ".write": true } } }
+  4. Commit / push. GitHub Pages sert le fichier tel quel (pas de front-matter).
 
-  2. Menu "Realtime Database" → "Créer une base de données"
-     → choisis une région (europe-west1) → démarre en "mode test".
-
-  3. Copie l'URL de la base (ex : https://ton-projet-default-rtdb.europe-west1.firebasedatabase.app )
-     et colle-la ci-dessous dans DB_URL.
-
-  4. Onglet "Règles" de la Realtime Database → colle ceci → Publier :
-       {
-         "rules": { "devs": { ".read": true, ".write": true } }
-       }
-     (base interne, données non sensibles : lecture/écriture ouvertes, c'est OK.
-      Si tu veux, mets une date d'expiration ou une règle plus stricte plus tard.)
-
-  5. Commit ce fichier en index.html sur ton repo GitHub Pages. Terminé.
-
-  ⚠️ À VÉRIFIER depuis le réseau Airbus : que le domaine de la base
-     (…firebasedatabase.app) passe bien le proxy. Ouvre l'URL DB_URL + "/devs.json"
-     dans un navigateur au boulot : si tu vois "null" ou du JSON, c'est bon.
+  À VÉRIFIER depuis le réseau Airbus : ouvre DB_URL + "/devs.json" dans un
+  navigateur au boulot ; si tu vois "null" ou du JSON, le proxy laisse passer.
 -->
 <html lang="fr">
 <head>
@@ -51,61 +41,64 @@
   html{-webkit-text-size-adjust:100%}
   body{margin:0;background:var(--bg);color:var(--txt);
     font-family:"IBM Plex Sans",-apple-system,Segoe UI,Roboto,sans-serif;
-    padding:20px 16px 40px;max-width:560px;margin:0 auto}
+    padding:22px 16px 40px;max-width:520px;margin:0 auto}
   .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
-  header{margin-bottom:14px}
-  h1{font-size:24px;font-weight:700;margin:0;letter-spacing:-.01em;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  header{margin-bottom:16px}
+  h1{font-size:22px;font-weight:700;margin:0;letter-spacing:-.01em;display:flex;align-items:center;gap:9px}
   .tag{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.14em;
     text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:3px 7px}
-  .sub{color:var(--muted);font-size:13px;margin:8px 0 0;line-height:1.45}
+  .sub{color:var(--muted);font-size:13px;margin:7px 0 0;line-height:1.45}
 
   .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
     padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
   .card.warn{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 8%,var(--card))}
   .card.warn b{color:var(--gold)}
-  .card.warn code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--card2);
-    padding:1px 5px;border-radius:5px}
+  .card.warn code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--card2);padding:1px 5px;border-radius:5px}
 
-  .status{display:flex;align-items:center;gap:12px}
-  .dot{width:12px;height:12px;border-radius:50%;background:var(--ok);flex:none;
-    box-shadow:0 0 0 5px color-mix(in srgb,var(--ok) 22%,transparent);transition:.25s}
-  .dot.lag{background:var(--lag);box-shadow:0 0 0 5px color-mix(in srgb,var(--lag) 30%,transparent);animation:pulse 1s infinite}
-  @keyframes pulse{50%{box-shadow:0 0 0 10px color-mix(in srgb,var(--lag) 8%,transparent)}}
-  @media (prefers-reduced-motion:reduce){.dot.lag{animation:none}}
-  .status b{font-size:15px;font-weight:600}
-  .status .st-sub{color:var(--muted);font-size:12px;margin-top:1px}
+  input.name{width:100%;font:inherit;font-weight:600;background:var(--card2);border:1px solid var(--line);
+    color:var(--txt);border-radius:11px;padding:11px 12px}
+  input::placeholder{color:var(--muted)}
 
-  .namewrap{display:flex;align-items:center;gap:10px}
-  .namewrap .who{font-size:12px;color:var(--muted);flex:none}
-  input.name{flex:1;font:inherit;font-weight:600;background:var(--card2);border:1px solid var(--line);
-    color:var(--txt);border-radius:11px;padding:10px 12px}
-
+  /* hero */
   .hero{text-align:center}
   .hero .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  .timer{font-family:"IBM Plex Mono",monospace;font-size:56px;font-weight:600;letter-spacing:-.02em;
-    line-height:1.05;margin:6px 0 14px;font-variant-numeric:tabular-nums}
-  .big{display:block;width:100%;border:none;border-radius:14px;padding:20px;
-    font-family:"IBM Plex Sans",sans-serif;font-size:19px;font-weight:600;color:#fff;background:var(--ok);
+  .timer{font-family:"IBM Plex Mono",monospace;font-size:60px;font-weight:600;letter-spacing:-.02em;
+    line-height:1.05;margin:6px 0 16px;font-variant-numeric:tabular-nums}
+  .big{display:block;width:100%;border:none;border-radius:14px;padding:22px;
+    font-family:"IBM Plex Sans",sans-serif;font-size:20px;font-weight:600;color:#fff;background:var(--ok);
     cursor:pointer;transition:.15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
   .big:active{transform:scale(.985)}
   .big.rec{background:var(--lag)}
   input.lbl{width:100%;margin-top:10px;font:inherit;background:var(--card2);border:1px solid var(--line);
     color:var(--txt);border-radius:11px;padding:11px 12px;text-align:center}
-  input::placeholder{color:var(--muted)}
 
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .stat{background:var(--card2);border:1px solid var(--line);border-radius:13px;padding:13px}
-  .stat .lbl{font-family:"IBM Plex Mono",monospace;color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
-  .stat .v{font-size:23px;font-weight:700;margin-top:3px}
-  .stat .v.gold{color:var(--gold)}
+  /* toggle écran allumé */
+  .awake{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:14px;
+    font-size:13px;color:var(--muted);cursor:pointer;user-select:none}
+  .awake[hidden]{display:none}
+  .sw{width:40px;height:23px;border-radius:999px;background:var(--line);position:relative;transition:.18s;flex:none}
+  .sw::after{content:"";position:absolute;top:2px;left:2px;width:19px;height:19px;border-radius:50%;
+    background:#fff;transition:.18s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+  .awake.on .sw{background:var(--ok)}
+  .awake.on .sw::after{transform:translateX(17px)}
+  .awake.on{color:var(--txt);font-weight:600}
 
-  .team-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px}
+  /* toi : ligne compacte */
+  .me-line{display:flex;gap:10px}
+  .me-line .cell{flex:1;background:var(--card2);border:1px solid var(--line);border-radius:13px;padding:12px 14px}
+  .me-line .lbl{font-family:"IBM Plex Mono",monospace;color:var(--muted);font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+  .me-line .v{font-size:22px;font-weight:700;margin-top:2px}
+  .me-line .v.gold{color:var(--gold)}
+
+  /* équipe */
+  .team-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px}
+  .team-head h2{margin:0}
   .pill{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.06em;
     text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
   .pill.on{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 45%,var(--line))}
   .pill.off{color:var(--lag);border-color:color-mix(in srgb,var(--lag) 45%,var(--line))}
-  .headline{text-align:center;padding:6px 0 14px}
-  .headline .big-time{font-family:"IBM Plex Mono",monospace;font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1}
+  .headline{text-align:center;padding:4px 0 14px}
+  .headline .big-time{font-family:"IBM Plex Mono",monospace;font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1}
   .headline .big-cost{font-size:20px;font-weight:700;color:var(--gold);margin-top:6px}
   .headline .cap{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:8px}
 
@@ -118,18 +111,18 @@
   tr.me td{background:color-mix(in srgb,var(--gold) 9%,transparent)}
   .empty{color:var(--muted);text-align:center;padding:14px 0;font-size:13px}
 
+  /* réglages */
   .rate{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
   .rate label{font-size:12px;color:var(--muted);flex:1;min-width:150px;line-height:1.4}
-  .rate input{width:96px;font:inherit;background:var(--card2);border:1px solid var(--line);color:var(--txt);
+  .rate input{width:92px;font:inherit;background:var(--card2);border:1px solid var(--line);color:var(--txt);
     border-radius:10px;padding:9px 11px;text-align:right}
-
   .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-  .btn{flex:1;min-width:130px;font:inherit;font-weight:600;font-size:14px;border:1px solid var(--line);
+  .btn{flex:1;min-width:120px;font:inherit;font-weight:600;font-size:14px;border:1px solid var(--line);
     background:var(--card2);color:var(--txt);border-radius:11px;padding:11px;cursor:pointer;transition:.15s;touch-action:manipulation}
   .btn:active{transform:scale(.985)}
   .btn:hover{border-color:var(--gold)}
   .btn.ghost{flex:0 0 auto;background:transparent;color:var(--muted)}
-  .foot{color:var(--muted);font-size:11.5px;text-align:center;margin-top:22px;line-height:1.5}
+  .foot{color:var(--muted);font-size:11.5px;text-align:center;margin-top:20px;line-height:1.5}
   :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 </style>
 </head>
@@ -137,47 +130,37 @@
 
 <header>
   <h1>🐢 loss <span class="tag">poste qui rame</span></h1>
-  <p class="sub">Chaque seconde d'attente coûte de l'argent. On la compte, on la chiffre, pour toute l'équipe. Depuis le PC <b>ou</b> le téléphone quand le poste est planté.</p>
+  <p class="sub">Le PC est planté ? Lance le chrono. Chaque seconde d'attente est comptée et chiffrée, pour toute l'équipe.</p>
 </header>
 
 <div class="card warn" id="setup" hidden>
-  ⚙️ <b>Pas encore configuré.</b> Renseigne <code>DB_URL</code> en haut du fichier (voir le commentaire), puis recommits. En attendant, le compteur fonctionne en <b>local seulement</b> (pas de partage).
+  ⚙️ <b>Pas encore configuré.</b> Renseigne <code>DB_URL</code> dans le <code>&lt;script&gt;</code> pour activer le partage. En attendant : compteur <b>local seulement</b>.
 </div>
 
 <div class="card">
-  <div class="namewrap">
-    <span class="who">👤 Toi&nbsp;:</span>
-    <input class="name" id="name" placeholder="Ton prénom / pseudo (visible par l'équipe)" maxlength="24">
-  </div>
-</div>
-
-<div class="card">
-  <div class="status">
-    <span class="dot" id="dot"></span>
-    <div><b id="stMain">Ça tourne</b><div class="st-sub" id="stSub">le poste répond normalement</div></div>
-  </div>
+  <input class="name" id="name" placeholder="Ton prénom / pseudo (visible par l'équipe)" maxlength="24">
 </div>
 
 <div class="card hero">
   <div class="k">Chrono d'attente</div>
   <div class="timer" id="timer">00:00</div>
   <button class="big" id="btn">▶&nbsp;&nbsp;Je poireaute</button>
-  <input class="lbl" id="label" placeholder="Sur quoi ? (ex : build Maven, démarrage VM…)">
+  <input class="lbl" id="label" placeholder="Sur quoi ? (build, VM, ouverture projet…)">
+  <div class="awake" id="awake" role="switch" aria-checked="false" tabindex="0">
+    <span class="sw"></span><span id="awakeTxt">Garder l'écran allumé</span>
+  </div>
 </div>
 
 <div class="card">
-  <h2>Mon compteur</h2>
-  <div class="grid">
-    <div class="stat"><div class="lbl">Perdu aujourd'hui</div><div class="v" id="today">0 s</div></div>
-    <div class="stat"><div class="lbl">Coût du jour</div><div class="v gold" id="costToday">0 €</div></div>
-    <div class="stat"><div class="lbl">Mon total</div><div class="v" id="total">0 s</div></div>
-    <div class="stat"><div class="lbl">Mon coût total</div><div class="v gold" id="costTotal">0 €</div></div>
+  <div class="me-line">
+    <div class="cell"><div class="lbl">Mon total perdu</div><div class="v" id="myTotal">0 s</div></div>
+    <div class="cell"><div class="lbl">Mon coût</div><div class="v gold" id="myCost">0 €</div></div>
   </div>
 </div>
 
 <div class="card">
   <div class="team-head">
-    <h2 style="margin:0">Équipe entière</h2>
+    <h2>Équipe entière</h2>
     <span class="pill off" id="sync">hors-ligne</span>
   </div>
   <div class="headline">
@@ -187,7 +170,7 @@
   </div>
   <div style="overflow-x:auto">
     <table>
-      <thead><tr><th>Dev</th><th>Total perdu</th><th>Coût</th><th>Vu</th></tr></thead>
+      <thead><tr><th>Dev</th><th>Perdu</th><th>Coût</th><th>Vu</th></tr></thead>
       <tbody id="teamBody"></tbody>
     </table>
   </div>
@@ -195,20 +178,17 @@
 
 <div class="card">
   <div class="rate">
-    <label for="rate">Coût horaire chargé d'un dev — sert à convertir le temps en euros pour tout le monde.</label>
+    <label for="rate">Coût horaire chargé d'un dev — pour convertir le temps en euros.</label>
     <input class="mono" id="rate" type="number" min="0" step="5" inputmode="numeric"> <span class="mono">€/h</span>
   </div>
   <div class="actions">
-    <button class="btn" id="csv">⬇ Export CSV équipe</button>
-    <button class="btn" id="copy">📋 Copier le résumé</button>
+    <button class="btn" id="csv">⬇ Export CSV</button>
+    <button class="btn" id="copy">📋 Résumé</button>
     <button class="btn ghost" id="reset">Effacer le mien</button>
   </div>
 </div>
 
-<p class="foot">
-  « Auto » = micro-freezes détectés quand l'onglet est actif sur le PC. « Manuel » = ce que tu chronomètres.<br>
-  Ton compteur est sauvegardé sur ton appareil et synchronisé pour l'équipe. Le total équipe additionne tout le monde.
-</p>
+<p class="foot" id="foot">Ton compteur est sauvegardé sur cet appareil et synchronisé pour l'équipe.</p>
 
 <script>
 (() => {
@@ -216,50 +196,32 @@
 
   // ╔══════════════════════════════════════════════════════════════╗
   // ║  COLLE ICI L'URL DE TA REALTIME DATABASE (sans slash final)   ║
-  // ║  ex : https://ton-projet-default-rtdb.europe-west1.firebasedatabase.app
   const DB_URL = "https://loss-542ea-default-rtdb.europe-west1.firebasedatabase.app";
   // ╚══════════════════════════════════════════════════════════════╝
 
-  const KEY="lagometre.v3", TICK=250, STALL=200, SLEEP_CAP=60000;
+  const KEY="loss.v1";
   const $=id=>document.getElementById(id);
   const today=()=>{const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;};
 
-  // identité stable de l'appareil
-  function uid(){try{return crypto.randomUUID();}catch(e){return "d"+Math.random().toString(36).slice(2)+Date.now().toString(36);}}
+  function gid(){try{return crypto.randomUUID();}catch(e){return "d"+Math.random().toString(36).slice(2)+Date.now().toString(36);}}
   let data=load();
-  if(!data.id){data.id=uid();save();}
-  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{days:{},rate:60,name:"",id:""};}catch(e){return {days:{},rate:60,name:"",id:""};}}
+  if(!data.id){data.id=gid();save();}
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{days:{},rate:60,name:"",id:"",awake:false};}catch(e){return {days:{},rate:60,name:"",id:"",awake:false};}}
   function save(){try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}}
-  function day(d){return data.days[d]||(data.days[d]={auto:0,manual:0});}
-  function myTotals(){let a=0,m=0;for(const d in data.days){a+=data.days[d].auto;m+=data.days[d].manual;}return {auto:a,manual:m};}
+  function total(){let s=0;for(const d in data.days)s+=data.days[d]||0;return s;}
 
-  if(!DB_URL) $("setup").hidden=false;
+  if(!DB_URL){$("setup").hidden=false;$("foot").textContent="Ton compteur est sauvegardé sur cet appareil (partage désactivé tant que DB_URL est vide).";}
 
-  // ---------- détection auto : dérive du timer ----------
-  let last=performance.now(), lagAt=0;
-  setInterval(()=>{
-    const now=performance.now(), drift=now-last-TICK; last=now;
-    if(!document.hidden && drift>STALL && drift<SLEEP_CAP){
-      day(today()).auto += drift/1000; save(); markDirty(); lagAt=now;
-    }
-    setLag((now-lagAt)<900); renderMine();
-  },TICK);
-  function setLag(on){
-    $("dot").classList.toggle("lag",on);
-    $("stMain").textContent=on?"Ça rame…":"Ça tourne";
-    $("stSub").textContent=on?"temps perdu en cours de comptage":"le poste répond normalement";
-  }
-
-  // ---------- chrono manuel ----------
+  // ---------- chrono manuel (le seul compteur) ----------
   let start=0, raf=0;
   $("btn").addEventListener("click",()=>{
     const b=$("btn");
     if(!start){start=performance.now();b.textContent="⏹  J'ai repris la main";b.classList.add("rec");tick();}
     else{
-      day(today()).manual+=(performance.now()-start)/1000;
+      const t=today(); data.days[t]=(data.days[t]||0)+(performance.now()-start)/1000;
       start=0;cancelAnimationFrame(raf);
       b.textContent="▶  Je poireaute";b.classList.remove("rec");
-      $("timer").textContent="00:00";$("label").value="";save();markDirty();renderMine();push();
+      $("timer").textContent="00:00";$("label").value="";save();dirty=true;renderMine();push();
     }
   });
   function tick(){
@@ -267,6 +229,29 @@
     $("timer").textContent=`${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
     raf=requestAnimationFrame(tick);
   }
+
+  // ---------- garder l'écran allumé (Wake Lock) ----------
+  const awakeEl=$("awake");
+  let wakeLock=null;
+  const supported = "wakeLock" in navigator;
+  if(!supported){ awakeEl.hidden=true; }
+  async function acquire(){
+    if(!data.awake||!supported)return;
+    try{ wakeLock=await navigator.wakeLock.request("screen");
+      wakeLock.addEventListener("release",()=>{wakeLock=null;});
+    }catch(e){ /* refusé (batterie faible, onglet caché…) : on retentera au retour */ }
+  }
+  function releaseWake(){ if(wakeLock){wakeLock.release().catch(()=>{});wakeLock=null;} }
+  function paintAwake(){
+    awakeEl.classList.toggle("on",!!data.awake);
+    awakeEl.setAttribute("aria-checked",data.awake?"true":"false");
+    $("awakeTxt").textContent = data.awake ? "Écran maintenu allumé" : "Garder l'écran allumé";
+  }
+  function toggleAwake(){ data.awake=!data.awake; save(); paintAwake(); data.awake?acquire():releaseWake(); }
+  awakeEl.addEventListener("click",toggleAwake);
+  awakeEl.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();toggleAwake();}});
+  document.addEventListener("visibilitychange",()=>{ if(!document.hidden && data.awake) acquire(); });
+  paintAwake(); acquire();
 
   // ---------- format ----------
   function fmt(sec){sec=Math.round(sec);
@@ -280,65 +265,62 @@
     if(s<90)return "à l'instant";if(s<3600)return Math.round(s/60)+" min";
     if(s<86400)return Math.round(s/3600)+" h";return Math.round(s/86400)+" j";}
 
-  // ---------- rendu perso ----------
-  function renderMine(){
-    const t=day(today()),tTot=t.auto+t.manual,mine=myTotals(),g=mine.auto+mine.manual;
-    $("today").textContent=fmt(tTot);$("total").textContent=fmt(g);
-    $("costToday").textContent=euro(tTot);$("costTotal").textContent=euro(g);
-  }
+  function renderMine(){const g=otherDevSec()+total();$("myTotal").textContent=fmt(g);$("myCost").textContent=euro(g);}
+
+  // ---------- identité = le NOM (normalisé), commune à tous tes appareils ----------
+  function slugify(s){return (s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");}
+  function mySlug(){return slugify(data.name);}
+  // somme des secondes d'un utilisateur (nouveau format {dev:{}} ou ancien plat, par tolérance)
+  function userSec(n){if(!n)return 0;if(n.dev){let s=0;for(const k in n.dev)s+=(n.dev[k]&&n.dev[k].secondes)||0;return s;}return n.secondes!=null?n.secondes:((n.auto||0)+(n.manuel||0));}
+  function userMaj(n){if(!n)return 0;if(n.dev){let m=0;for(const k in n.dev)m=Math.max(m,(n.dev[k]&&n.dev[k].maj)||0);return m;}return n.maj||0;}
+  // secondes de MES AUTRES appareils (ex : le tél quand je suis sur le PC), d'après le dernier pull
+  function otherDevSec(){const n=cache[mySlug()];if(!n||!n.dev)return 0;let s=0;for(const k in n.dev){if(k!==data.id)s+=(n.dev[k]&&n.dev[k].secondes)||0;}return s;}
 
   // ---------- synchro Firebase (REST) ----------
-  let dirty=false, online=false;
-  function markDirty(){dirty=true;}
-  function setSync(ok){online=ok;const p=$("sync");
-    p.className="pill "+(ok?"on":"off");p.textContent=ok?"synchronisé":(DB_URL?"hors-ligne":"local");}
-
+  let dirty=false, cache={};
+  function setSync(ok){const p=$("sync");p.className="pill "+(ok?"on":"off");p.textContent=ok?"synchronisé":(DB_URL?"hors-ligne":"local");}
   async function push(){
-    if(!DB_URL)return;
-    const mine=myTotals();
-    const body={nom:(data.name||"").trim()||"Anonyme",auto:Math.round(mine.auto),manuel:Math.round(mine.manual),maj:Date.now()};
-    try{
-      const r=await fetch(`${DB_URL}/devs/${data.id}.json`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
-      if(!r.ok)throw 0; dirty=false; setSync(true);
-    }catch(e){setSync(false);}
+    if(!DB_URL||!mySlug())return;                      // pas de nom saisi = on n'écrit rien
+    const slug=mySlug();
+    if(data.slug&&data.slug!==slug){                    // nom changé → on retire cet appareil de l'ancien utilisateur
+      try{await fetch(`${DB_URL}/devs/${data.slug}/dev/${data.id}.json`,{method:"DELETE"});}catch(e){}
+    }
+    data.slug=slug;save();
+    // PATCH avec une clé "dev/<id>" : met à jour le nom + MON appareil, sans toucher aux autres appareils du même user
+    const body={nom:(data.name||"").trim(),["dev/"+data.id]:{secondes:Math.round(total()),maj:Date.now()}};
+    try{const r=await fetch(`${DB_URL}/devs/${slug}.json`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+      if(!r.ok)throw 0; dirty=false; setSync(true);}catch(e){setSync(false);}
   }
   async function pull(){
     if(!DB_URL){setSync(false);renderTeamLocal();return;}
-    try{
-      const r=await fetch(`${DB_URL}/devs.json`,{cache:"no-store"});
-      if(!r.ok)throw 0;
-      const all=await r.json()||{}; setSync(true); renderTeam(all);
-    }catch(e){setSync(false);renderTeamLocal();}
+    try{const r=await fetch(`${DB_URL}/devs.json`,{cache:"no-store"});
+      if(!r.ok)throw 0; setSync(true); renderTeam(await r.json()||{});}
+    catch(e){setSync(false);renderTeamLocal();}
   }
-  function renderTeamLocal(){
-    const mine=myTotals();
-    renderTeam({[data.id]:{nom:(data.name||"").trim()||"Toi",auto:mine.auto,manuel:mine.manual,maj:Date.now()}});
-  }
+  function renderTeamLocal(){renderTeam({[mySlug()||"moi"]:{nom:(data.name||"").trim()||"Toi",dev:{[data.id]:{secondes:total(),maj:Date.now()}}}});}
   function renderTeam(all){
-    const rows=Object.entries(all).map(([id,d])=>({id,nom:d.nom||"Anonyme",tot:(d.auto||0)+(d.manuel||0),maj:d.maj}))
-      .sort((a,b)=>b.tot-a.tot);
+    cache=all||{};
+    const me=mySlug();
+    const rows=Object.entries(cache).map(([slug,d])=>({slug,nom:d.nom||"Anonyme",tot:userSec(d),maj:userMaj(d)}))
+      .filter(r=>r.tot>0||r.slug===me).sort((a,b)=>b.tot-a.tot);
     const teamSec=rows.reduce((s,r)=>s+r.tot,0);
     $("teamTime").textContent=fmt(teamSec);
     $("teamCost").textContent=euro(teamSec);
     $("teamCap").textContent=`temps perdu cumulé (${rows.length} dev${rows.length>1?"s":""}) — ce que ça coûte à Sopra`;
     $("teamBody").innerHTML = rows.length ? rows.map(r=>
-      `<tr class="${r.id===data.id?"me":""}"><td>${esc(r.nom)}${r.id===data.id?" <span style='color:var(--muted)'>(toi)</span>":""}</td><td><b>${fmt(r.tot)}</b></td><td class="gold">${euro(r.tot)}</td><td style="color:var(--muted)">${ago(r.maj)}</td></tr>`
+      `<tr class="${r.slug===me?"me":""}"><td>${esc(r.nom)}${r.slug===me?" <span style='color:var(--muted)'>(toi)</span>":""}</td><td><b>${fmt(r.tot)}</b></td><td class="gold">${euro(r.tot)}</td><td style="color:var(--muted)">${ago(r.maj)}</td></tr>`
     ).join("") : `<tr><td colspan="4"><div class="empty">Personne n'a encore rien perdu 🎉</div></td></tr>`;
+    renderMine();
   }
   function esc(s){return String(s).replace(/[<>&]/g,c=>({"<":"&lt;",">":"&gt;","&":"&amp;"}[c]));}
 
-  // pousse si modifié (toutes les 10s) + rafraîchit l'équipe (toutes les 15s)
   setInterval(()=>{if(dirty)push();},10000);
   setInterval(pull,15000);
-  window.addEventListener("beforeunload",()=>{if(dirty&&DB_URL&&navigator.sendBeacon){
-    const mine=myTotals();
-    navigator.sendBeacon(`${DB_URL}/devs/${data.id}.json`); // best-effort
-  }});
 
   // ---------- nom / taux ----------
   $("name").value=data.name||"";
-  $("name").addEventListener("input",e=>{data.name=e.target.value;save();markDirty();});
-  $("name").addEventListener("change",push);
+  $("name").addEventListener("input",e=>{data.name=e.target.value;save();dirty=true;renderMine();});
+  $("name").addEventListener("change",()=>{push();pull();});
   $("rate").value=data.rate;
   $("rate").addEventListener("input",e=>{data.rate=parseFloat(e.target.value)||0;save();renderMine();pull();});
 
@@ -346,10 +328,10 @@
   $("csv").addEventListener("click",async()=>{
     let all={};
     if(DB_URL){try{const r=await fetch(`${DB_URL}/devs.json`,{cache:"no-store"});all=await r.json()||{};}catch(e){}}
-    if(!Object.keys(all).length){const mine=myTotals();all={[data.id]:{nom:data.name||"Toi",auto:mine.auto,manuel:mine.manual}};}
-    let csv="dev;auto_secondes;manuel_secondes;total_secondes;cout_eur\n";
-    for(const id in all){const d=all[id],tot=(d.auto||0)+(d.manuel||0);
-      csv+=`${(d.nom||"Anonyme").replace(/;/g,",")};${Math.round(d.auto||0)};${Math.round(d.manuel||0)};${Math.round(tot)};${(tot/3600*(data.rate||0)).toFixed(2)}\n`;}
+    if(!Object.keys(all).length){all={[mySlug()||"moi"]:{nom:data.name||"Toi",dev:{[data.id]:{secondes:total()}}}};}
+    let csv="dev;secondes;heures;cout_eur\n";
+    for(const slug in all){const d=all[slug],tot=userSec(d);
+      csv+=`${(d.nom||"Anonyme").replace(/;/g,",")};${Math.round(tot)};${(tot/3600).toFixed(2)};${(tot/3600*(data.rate||0)).toFixed(2)}\n`;}
     try{const url=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
       const a=document.createElement("a");a.href=url;a.download=`loss_equipe_${today()}.csv`;a.click();
       setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){prompt("Copie ce CSV :",csv);}
@@ -357,20 +339,20 @@
   $("copy").addEventListener("click",async()=>{
     let all={};
     if(DB_URL){try{const r=await fetch(`${DB_URL}/devs.json`,{cache:"no-store"});all=await r.json()||{};}catch(e){}}
-    if(!Object.keys(all).length){const mine=myTotals();all={x:{nom:"Toi",auto:mine.auto,manuel:mine.manual}};}
-    const list=Object.values(all),sec=list.reduce((s,d)=>s+(d.auto||0)+(d.manuel||0),0);
-    const txt=`Temps perdu à attendre des postes qui rament — ${list.length} dev(s) :
-• TOTAL équipe : ${fmt(sec)}  →  ${euro(sec)} de coût (à ${data.rate} €/h)
-• Soit ~${(sec/3600).toFixed(1)} h de travail payées à ne rien faire.
-Détail par dev disponible en export CSV.`;
-    try{await navigator.clipboard.writeText(txt);$("copy").textContent="✓ Copié";setTimeout(()=>$("copy").textContent="📋 Copier le résumé",1500);}
+    if(!Object.keys(all).length){all={x:{nom:"Toi",dev:{[data.id]:{secondes:total()}}}};}
+    const list=Object.values(all),sec=list.reduce((s,d)=>s+userSec(d),0),n=list.filter(d=>userSec(d)>0).length||list.length;
+    const txt=`Temps perdu à attendre des postes qui rament — ${n} dev(s) :
+• TOTAL équipe : ${fmt(sec)}  →  ${euro(sec)} (à ${data.rate} €/h)
+• Soit ~${(sec/3600).toFixed(1)} h payées à ne rien faire.
+Détail par dev dans l'export CSV.`;
+    try{await navigator.clipboard.writeText(txt);$("copy").textContent="✓ Copié";setTimeout(()=>$("copy").textContent="📋 Résumé",1500);}
     catch(e){prompt("Copie ce résumé :",txt);}
   });
   $("reset").addEventListener("click",async()=>{
-    if(!confirm("Effacer TON compteur (local + équipe) ? Irréversible."))return;
-    data.days={};save();renderMine();
-    if(DB_URL){try{await fetch(`${DB_URL}/devs/${data.id}.json`,{method:"DELETE"});}catch(e){}}
-    pull();
+    if(!confirm("Effacer le compteur de CET appareil (local + sa part côté équipe) ? Irréversible."))return;
+    data.days={};save();
+    if(DB_URL&&mySlug()){try{await fetch(`${DB_URL}/devs/${mySlug()}/dev/${data.id}.json`,{method:"DELETE"});}catch(e){}}
+    renderMine();pull();
   });
 
   // ---------- démarrage ----------
