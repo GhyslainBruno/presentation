@@ -166,7 +166,7 @@
   <div class="headline">
     <div class="big-time" id="teamTime">0 s</div>
     <div class="big-cost" id="teamCost">0 €</div>
-    <div class="cap" id="teamCap">temps perdu cumulé — ce que ça coûte à Sopra</div>
+    <div class="cap" id="teamCap">temps perdu cumulé — ce que ça coûte</div>
   </div>
   <div style="overflow-x:auto">
     <table>
@@ -315,7 +315,7 @@
     const teamSec=rows.reduce((s,r)=>s+r.tot,0);
     $("teamTime").textContent=fmt(teamSec);
     $("teamCost").textContent=euro(teamSec);
-    $("teamCap").textContent=`temps perdu cumulé (${rows.length} dev${rows.length>1?"s":""}) — ce que ça coûte à Sopra`;
+    $("teamCap").textContent=`temps perdu cumulé (${rows.length} dev${rows.length>1?"s":""}) — ce que ça coûte`;
     $("teamBody").innerHTML = rows.length ? rows.map(r=>
       `<tr class="${r.slug===me?"me":""}"><td>${esc(r.nom)}${r.slug===me?" <span style='color:var(--muted)'>(toi)</span>":""}</td><td><b>${fmt(r.tot)}</b></td><td class="gold">${euro(r.tot)}</td><td style="color:var(--muted)">${ago(r.maj)}</td></tr>`
     ).join("") : `<tr><td colspan="4"><div class="empty">Personne n'a encore rien perdu 🎉</div></td></tr>`;
