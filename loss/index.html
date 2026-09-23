@@ -69,6 +69,10 @@
     cursor:pointer;transition:.15s;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
   .big:active{transform:scale(.985)}
   .big.rec{background:var(--lag)}
+  .undo{display:block;width:100%;margin-top:8px;font:inherit;font-size:13px;background:transparent;border:1px dashed var(--line);
+    color:var(--muted);border-radius:11px;padding:9px;cursor:pointer;touch-action:manipulation}
+  .undo[hidden]{display:none}
+  .undo:hover{border-color:var(--lag);color:var(--lag)}
   input.lbl{width:100%;margin-top:10px;font:inherit;background:var(--card2);border:1px solid var(--line);
     color:var(--txt);border-radius:11px;padding:11px 12px;text-align:center}
 
@@ -145,6 +149,7 @@
   <div class="k">Chrono d'attente</div>
   <div class="timer" id="timer">00:00</div>
   <button class="big" id="btn">▶&nbsp;&nbsp;Je poireaute</button>
+  <button class="undo" id="undo" hidden></button>
   <input class="lbl" id="label" placeholder="Sur quoi ? (build, VM, ouverture projet…)">
   <div class="awake" id="awake" role="switch" aria-checked="false" tabindex="0">
     <span class="sw"></span><span id="awakeTxt">Garder l'écran allumé</span>
@@ -218,11 +223,20 @@
     const b=$("btn");
     if(!start){start=performance.now();b.textContent="⏹  J'ai repris la main";b.classList.add("rec");tick();}
     else{
-      const t=today(); data.days[t]=(data.days[t]||0)+(performance.now()-start)/1000;
+      const t=today(), sec=(performance.now()-start)/1000; data.days[t]=(data.days[t]||0)+sec;
+      data.last={day:t,sec};   // mémorisée pour pouvoir l'annuler (chrono oublié, mauvaise manip…)
       start=0;cancelAnimationFrame(raf);
       b.textContent="▶  Je poireaute";b.classList.remove("rec");
-      $("timer").textContent="00:00";$("label").value="";save();dirty=true;renderMine();push();
+      $("timer").textContent="00:00";$("label").value="";save();dirty=true;renderMine();renderUndo();push();
     }
+  });
+  // ---------- annuler la dernière valeur enregistrée ----------
+  function renderUndo(){const u=$("undo"),l=data.last;u.hidden=!l;if(l)u.textContent=`↶  Annuler la dernière (${fmt(l.sec)})`;}
+  $("undo").addEventListener("click",()=>{
+    const l=data.last; if(!l)return;
+    if(!confirm(`Supprimer la dernière attente enregistrée (${fmt(l.sec)}) ?`))return;
+    data.days[l.day]=Math.max(0,(data.days[l.day]||0)-l.sec);
+    delete data.last; save(); dirty=true; renderUndo(); renderMine(); push();
   });
   function tick(){
     const s=Math.floor((performance.now()-start)/1000);
@@ -309,7 +323,7 @@
     const me=mySlug();
     // reset propagé : si mon compteur a été effacé depuis un autre appareil, on vide le local ici aussi
     const myNode=cache[me];
-    if(myNode&&myNode.reset&&myNode.reset>(data.resetSeen||0)){data.days={};data.resetSeen=myNode.reset;save();dirty=true;}
+    if(myNode&&myNode.reset&&myNode.reset>(data.resetSeen||0)){data.days={};delete data.last;data.resetSeen=myNode.reset;save();dirty=true;renderUndo();}
     const rows=Object.entries(cache).map(([slug,d])=>({slug,nom:d.nom||"Anonyme",tot:userSec(d),maj:userMaj(d)}))
       .filter(r=>r.tot>0||r.slug===me).sort((a,b)=>b.tot-a.tot);
     const teamSec=rows.reduce((s,r)=>s+r.tot,0);
@@ -360,7 +374,7 @@ Détail par dev dans l'export CSV.`;
   $("reset").addEventListener("click",async()=>{
     if(!confirm("Effacer TON compteur sur TOUS tes appareils (même nom) ? Irréversible."))return;
     const slug=mySlug(), epoch=Date.now();
-    data.days={}; data.resetSeen=epoch; save();
+    data.days={}; delete data.last; data.resetSeen=epoch; save(); renderUndo();
     // pose un marqueur "reset" + supprime tes appareils : les autres appareils au même nom videront leur local au prochain rafraîchissement
     if(DB_URL&&slug){try{await fetch(`${DB_URL}/devs/${slug}.json`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({reset:epoch,dev:null})});}catch(e){}}
     if(cache[slug]){cache[slug].dev={};cache[slug].reset=epoch;}
@@ -368,7 +382,7 @@ Détail par dev dans l'export CSV.`;
   });
 
   // ---------- démarrage ----------
-  renderMine(); setSync(false); pull();
+  renderMine(); renderUndo(); setSync(false); pull();
 })();
 </script>
 </body>
