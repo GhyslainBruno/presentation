@@ -22,6 +22,8 @@ Petit utilitaire pour **compter le temps que l'équipe perd quand les postes ram
 - **Interrupteur « garder l'écran allumé »** (API Wake Lock) pour taper le bouton sur mobile
   sans déverrouiller. Masqué si le navigateur ne supporte pas.
 - **Coût** = temps × taux horaire chargé (`€/h`, réglable, défaut 60).
+- **« Annuler la dernière »** (sous le gros bouton) : retire la dernière attente enregistrée sur cet
+  appareil (chrono oublié, mauvaise manip). Un seul niveau d'annulation, mémorisé dans `data.last`.
 - Export CSV équipe + bouton « Résumé » (texte à coller pour la hiérarchie/Sopra).
 
 ## Partage (Firebase Realtime Database, en REST pur, pas de SDK)
